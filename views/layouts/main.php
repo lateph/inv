@@ -266,6 +266,18 @@ AppAsset::register($this);
                                 <li>
                                     <a href="<?= Url::to(['kategoribarang/index']); ?>">Kategori Barang</a>
                                 </li>
+                                <li>
+                                    <a href="<?= Url::to(['barang/index']); ?>">Barang</a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['project/index']); ?>">Project</a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['unit/index']); ?>">Unit</a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['user/index']); ?>">User</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

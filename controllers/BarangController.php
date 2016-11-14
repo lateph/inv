@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\user;
-use app\models\UserSearch;
+use app\models\Barang;
+use app\models\BarangSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 /**
- * UserController implements the CRUD actions for user model.
+ * BarangController implements the CRUD actions for Barang model.
  */
-class UserController extends Controller
+class BarangController extends Controller
 {
     /**
      * @inheritdoc
@@ -34,12 +34,12 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all user models.
+     * Lists all Barang models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new BarangSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single user model.
+     * Displays a single Barang model.
      * @param string $id
      * @return mixed
      */
@@ -61,17 +61,16 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a new user model.
+     * Creates a new Barang model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new user();
-        $model->scenario = 'create';
-        
+        $model = new Barang();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->kode_user]);
+            return $this->redirect(['update', 'id' => $model->kode_barang]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -80,8 +79,8 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing user model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * Updates an existing Barang model.
+     * If update is successful, the browser will be redirected to the 'update' page.
      * @param string $id
      * @return mixed
      */
@@ -90,7 +89,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->kode_user]);
+            return $this->redirect(['update', 'id' => $model->kode_barang]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -99,7 +98,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing user model.
+     * Deletes an existing Barang model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -112,15 +111,15 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the user model based on its primary key value.
+     * Finds the Barang model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return user the loaded model
+     * @return Barang the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = user::findOne($id)) !== null) {
+        if (($model = Barang::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

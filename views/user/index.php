@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use yii\helpers\ArrayHelper;
+use app\models\Unit;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,17 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            'kode_user',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            // 'email:email',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
+            // 'password',
+            'nama',
+            [
+                'attribute' => 'unit',
+                'value' => 'unit.unit_kerja',
+                'filter' => ArrayHelper::map(Unit::find()->all(), 'kode_unit', 'unit_kerja')
+            ],
+            'hak_akses',
 
-            ['class' => 'yii\grid\ActionColumn'],
+              ['class' => 'yii\grid\ActionColumn','template'=>'{update} {delete}'],
+            
         ],
     ]); ?>
 </div>

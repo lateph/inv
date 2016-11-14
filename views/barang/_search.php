@@ -4,28 +4,28 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\UserSearch */
+/* @var $model app\models\BarangSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="user-search">
+<div class="barang-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'kode_user') ?>
+    <?= $form->field($model, 'kode_barang') ?>
 
-    <?= $form->field($model, 'username') ?>
+    <?= $form->field($model, 'kode_kategori') ?>
 
-    <?= $form->field($model, 'password') ?>
+    <?= $form->field($model, 'nama_barang') ?>
 
-    <?= $form->field($model, 'nama') ?>
+    <?= $form->field($model, 'kode_satuan') ?>
 
-    <?= $form->field($model, 'kode_unit') ?>
+    <?= $form->field($model, 'deskripsi') ?>
 
-    <?php // echo $form->field($model, 'hak_akses') ?>
+    <?php // echo $form->field($model, 'stock_warning') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

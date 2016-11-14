@@ -8,7 +8,7 @@ use app\models\KategoriBarangSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
 /**
  * KategoriBarangController implements the CRUD actions for KategoriBarang model.
  */
@@ -20,12 +20,16 @@ class KategoribarangController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControl::className(),
+                // 'only' => ['login', 'signup','logout'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
-            ],
+            ]
         ];
     }
 

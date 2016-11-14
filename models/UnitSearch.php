@@ -5,21 +5,20 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\user;
+use app\models\unit;
 
 /**
- * UserSearch represents the model behind the search form about `app\models\user`.
+ * UnitSearch represents the model behind the search form about `app\models\unit`.
  */
-class UserSearch extends user
+class UnitSearch extends unit
 {
-    public $unit;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['kode_user', 'username', 'password', 'nama', 'kode_unit', 'hak_akses','unit'], 'safe'],
+            [['kode_unit', 'unit_kerja'], 'safe'],
         ];
     }
 
@@ -41,8 +40,7 @@ class UserSearch extends user
      */
     public function search($params)
     {
-        $query = user::find();
-        $query->joinWith(['unit']);
+        $query = unit::find();
 
         // add conditions that should always apply here
 
@@ -52,31 +50,15 @@ class UserSearch extends user
 
         $this->load($params);
 
-
-        $dataProvider->sort->attributes['unit'] = [
-            // The tables are the ones our relation are configured to
-            // in my case they are prefixed with "tbl_"
-            'asc' => ['unit.unit_kerja' => SORT_ASC],
-            'desc' => ['unit.unit_kerja' => SORT_DESC],
-        ];
-
-
-
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
 
-
-
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'kode_user', $this->kode_user])
-            ->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['unit.kode_unit' => $this->unit])
-            ->andFilterWhere(['like', 'hak_akses', $this->hak_akses]);
+        $query->andFilterWhere(['like', 'kode_unit', $this->kode_unit])
+            ->andFilterWhere(['like', 'unit_kerja', $this->unit_kerja]);
 
         return $dataProvider;
     }

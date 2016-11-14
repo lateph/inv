@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\user;
-use app\models\UserSearch;
+use app\models\Project;
+use app\models\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 /**
- * UserController implements the CRUD actions for user model.
+ * ProjectController implements the CRUD actions for Project model.
  */
-class UserController extends Controller
+class ProjectController extends Controller
 {
     /**
      * @inheritdoc
@@ -34,12 +34,12 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all user models.
+     * Lists all Project models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +49,7 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single user model.
+     * Displays a single Project model.
      * @param string $id
      * @return mixed
      */
@@ -61,17 +61,16 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a new user model.
+     * Creates a new Project model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new user();
-        $model->scenario = 'create';
-        
+        $model = new Project();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->kode_user]);
+            return $this->redirect(['update', 'id' => $model->kode_project]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -80,7 +79,7 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing user model.
+     * Updates an existing Project model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -90,7 +89,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->kode_user]);
+            return $this->redirect(['update', 'id' => $model->kode_project]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -99,7 +98,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing user model.
+     * Deletes an existing Project model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -112,15 +111,15 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the user model based on its primary key value.
+     * Finds the Project model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return user the loaded model
+     * @return Project the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = user::findOne($id)) !== null) {
+        if (($model = Project::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

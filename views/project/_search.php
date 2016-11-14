@@ -4,28 +4,28 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\UserSearch */
+/* @var $model app\models\ProjectSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="user-search">
+<div class="project-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'kode_user') ?>
+    <?= $form->field($model, 'kode_project') ?>
 
-    <?= $form->field($model, 'username') ?>
+    <?= $form->field($model, 'nama_project') ?>
 
-    <?= $form->field($model, 'password') ?>
+    <?= $form->field($model, 'lokasi') ?>
 
-    <?= $form->field($model, 'nama') ?>
+    <?= $form->field($model, 'tanggal_mulai') ?>
 
-    <?= $form->field($model, 'kode_unit') ?>
+    <?= $form->field($model, 'tanggal_selesai') ?>
 
-    <?php // echo $form->field($model, 'hak_akses') ?>
+    <?php // echo $form->field($model, 'perusahaan') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
