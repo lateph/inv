@@ -54,6 +54,7 @@ class Barang extends \yii\db\ActiveRecord
             'kode_satuan' => 'Satuan',
             'deskripsi' => 'Deskripsi',
             'stock_warning' => 'Stock Warning',
+            'tampil_stok_kosong' => 'Tampilkan Stok Kosong',
         ];
     }
 
@@ -71,5 +72,22 @@ class Barang extends \yii\db\ActiveRecord
     public function getSatuan()
     {
         return $this->hasOne(Satuan::className(), ['kode_satuan' => 'kode_satuan']);
+    }
+
+    public function getkodenama()
+    {
+            return $this->kode_barang.' - '.$this->nama_barang;
+    }
+
+    public function fields()
+    {   
+        $fields = parent::fields();
+        $fields[] = 'satuan';
+        return $fields;
+    }
+
+    public function getInout()
+    {
+        return $this->hasMany(Inout::className(), ['kode_barang' => 'kode_barang']);
     }
 }
