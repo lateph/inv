@@ -15,14 +15,14 @@ use app\models\Adjustment;
 /* @var $searchModel app\models\LaporanAdjustmentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Laporan Stok Barang';
+$this->title = 'Laporan Stok Warning';
 $this->params['breadcrumbs'][] = $this->title;
 
 $js = '
-$("#laporanstokbarangsearch-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US"});
-$("#laporanstokbarangsearch-kode_kategori").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Kategori -","language":"en-US"});
-$("#laporanstokbarangsearch-kode_satuan").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Satuan -","language":"en-US"});
-$("#laporanstokbarangsearch-tampil_stok_kosong").select2({"theme":"bootstrap","width":"100%","language":"en-US"});
+$("#laporanstokwarningsearch-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US"});
+$("#laporanstokwarningsearch-kode_kategori").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Kategori -","language":"en-US"});
+$("#laporanstokwarningsearch-kode_satuan").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Satuan -","language":"en-US"});
+$("#laporanstokwarningsearch-tampil_stok_kosong").select2({"theme":"bootstrap","width":"100%","language":"en-US"});
 ';
 
 $this->registerJs($js);
@@ -42,11 +42,6 @@ Select2Asset::register($this);
         <?= $form->field($searchModel, "kode_kategori")->dropDownList(ArrayHelper::map(KategoriBarang::find()->all(), 'kode_kategori', 'kategori_barang'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
 
         <?= $form->field($searchModel, 'nama_barang')->textInput() ?>
-
-
-        <?= $form->field($searchModel, "kode_satuan")->dropDownList(ArrayHelper::map(Satuan::find()->all(), 'kode_satuan', 'satuan_barang'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
-
-        <?= $form->field($searchModel, 'deskripsi')->textarea(['rows' => 6]) ?>
 
         <?= $form->field($searchModel, "tampil_stok_kosong")->dropDownList(['1'=>'Ya','2'=>'Tidak'],['target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>      
 
@@ -70,6 +65,7 @@ Select2Asset::register($this);
             'nama_barang',
             'kategori.kategori_barang',
             'satuan.satuan_barang',
+            'stock_warning',
             'stok',
             // 'keterangan',
             // 'kode_unit',

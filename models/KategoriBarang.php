@@ -27,6 +27,7 @@ class KategoriBarang extends \yii\db\ActiveRecord
     {
         return [
             [['kode_kategori', 'kategori_barang'], 'required'],
+            [['kode_kategori'], 'unique'],
             [['kode_kategori', 'kategori_barang'], 'string', 'max' => 255],
         ];
     }

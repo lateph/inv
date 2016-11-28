@@ -77,7 +77,7 @@ class PenerimaanController extends Controller
                                 $stok->qty_in = $modelDetail->qty;
                                 $stok->qty_out = 0;
                                 $stok->referensi = $model->no_penerimaan;
-                                $stok->stok = $modelDetail->kode_barang;
+                                $stok->stok = Inout::getCurrentStok($stok->idgudang,$stok->kode_barang) + $stok->qty_in;
                                 if (! ($flag = $stok->save(false))) {
                                     $transaction->rollBack();
                                     break;

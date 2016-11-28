@@ -312,6 +312,9 @@ AppAsset::register($this);
                                     <a href="<?= Url::to(['laporanstokbarang/index']); ?>">Laporan Stok Barang</a>
                                 </li>
                                 <li>
+                                    <a href="<?= Url::to(['laporanstokmutasi/index']); ?>">Laporan Mutasi Stok</a>
+                                </li>
+                                <li>
                                     <a href="<?= Url::to(['laporanstokwarning/index']); ?>">Laporan Stok Barang Warning</a>
                                 </li>
 

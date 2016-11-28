@@ -11,7 +11,7 @@ use app\models\Inout;
 /**
  * LaporanBarangSearch represents the model behind the search form about `app\models\Barang`.
  */
-class LaporanStokBarangSearch extends Barang
+class LaporanStokWarningSearch extends Barang
 {
     public $tampil_stok_kosong;
     public $stok;
@@ -44,7 +44,7 @@ class LaporanStokBarangSearch extends Barang
      */
     public function search($params)
     {
-        $query = LaporanStokBarangSearch::find()->select('barang.*,unit_gudang.kode_unit, sum(qty_in - qty_out) as stok');
+        $query = LaporanStokWarningSearch::find()->select('barang.*,unit_gudang.kode_unit, sum(qty_in - qty_out) as stok');
 
         // add conditions that should always apply here
 
@@ -80,6 +80,7 @@ class LaporanStokBarangSearch extends Barang
             ->andFilterWhere(['=', 'barang.kode_kategori', $this->kode_kategori])
             ->andFilterWhere(['=', 'barang.kode_satuan', $this->kode_satuan])
             ->andFilterWhere(['=', 'unit_gudang.kode_unit','G001'])
+            ->andWhere('stok <= barang.stock_warning')
             ->andFilterWhere(['like', 'barang.deskripsi', $this->deskripsi])
             ->andFilterWhere(['like', 'barang.nama_barang', $this->nama_barang]);
 

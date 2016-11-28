@@ -59,7 +59,7 @@ class AdjustmentController extends Controller
                     }
 
                     $stok->referensi = $model->no_adjustment;
-                    $stok->stok = $model->kode_barang;
+                    $stok->stok =  Inout::getCurrentStok($stok->idgudang,$stok->kode_barang) + ($stok->qty_in - $stok->qty_out);
                     if (! ($flag = $stok->save(false))) {
                         $transaction->rollBack();
                     }

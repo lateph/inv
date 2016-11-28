@@ -28,6 +28,7 @@ class Satuan extends \yii\db\ActiveRecord
     {
         return [
             [['kode_satuan', 'satuan_barang', 'singkatan'], 'required'],
+            [['kode_satuan'], 'unique'],
             [['kode_satuan', 'satuan_barang', 'singkatan'], 'string', 'max' => 255],
         ];
     }

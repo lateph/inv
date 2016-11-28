@@ -15,14 +15,14 @@ use app\models\Adjustment;
 /* @var $searchModel app\models\LaporanAdjustmentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Laporan Stok Barang';
+$this->title = 'Laporan Mutasi Stok';
 $this->params['breadcrumbs'][] = $this->title;
 
 $js = '
-$("#laporanstokbarangsearch-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US"});
-$("#laporanstokbarangsearch-kode_kategori").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Kategori -","language":"en-US"});
-$("#laporanstokbarangsearch-kode_satuan").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Satuan -","language":"en-US"});
-$("#laporanstokbarangsearch-tampil_stok_kosong").select2({"theme":"bootstrap","width":"100%","language":"en-US"});
+$("#laporanstokmutasisearch-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US"});
+$("#laporanstokmutasisearch-kode_kategori").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Kategori -","language":"en-US"});
+$("#laporanstokmutasisearch-kode_satuan").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Satuan -","language":"en-US"});
+$("#laporanstokmutasisearch-tampil_stok_kosong").select2({"theme":"bootstrap","width":"100%","language":"en-US"});
 ';
 
 $this->registerJs($js);
@@ -48,7 +48,7 @@ Select2Asset::register($this);
 
         <?= $form->field($searchModel, 'deskripsi')->textarea(['rows' => 6]) ?>
 
-        <?= $form->field($searchModel, "tampil_stok_kosong")->dropDownList(['1'=>'Ya','2'=>'Tidak'],['target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>      
+        <?= $form->field($searchModel, 'stock_warning')->textInput() ?>    
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-10">
@@ -66,10 +66,54 @@ Select2Asset::register($this);
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'kode_barang',
-            'nama_barang',
-            'kategori.kategori_barang',
-            'satuan.satuan_barang',
+            ['label'=>'Kode','attribute'=>'referensi'],
+            ['label'=>'Referensi','attribute'=>'tipe','value'=>function($row){
+                switch ($row->tipe) {
+                    case 1:
+                        return "Penerimaan";
+                        break;
+
+                    case 2:
+                        return "Distribusi"; 
+                        break;
+
+                    case 3:
+                        return "Adjustment"; 
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+            }],
+            ['label'=>'Unit','attribute'=>'kode_unit','value'=>function($row){
+                switch ($row->kode_unit) {
+                    case 'G001':
+                        return "Gudang";
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+            }],
+            'tanggal',
+            ['label'=>'Unit','attribute'=>'qty_in','value'=>function($row){
+                if($row->qty_in > $row->qty_out){
+                    return 'In';
+                }
+                else{
+                    return 'Out';
+                }
+            }],
+            ['label'=>'QTY','attribute'=>'qty_out','value'=>function($row){
+                if($row->qty_in > $row->qty_out){
+                    return $row->qty_in;
+                }
+                else{
+                    return $row->qty_out; 
+                }
+            }],
             'stok',
             // 'keterangan',
             // 'kode_unit',

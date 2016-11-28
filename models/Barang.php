@@ -33,6 +33,7 @@ class Barang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['kode_barang'], 'unique'],
             [['kode_barang','kode_kategori','kode_satuan'], 'required'],
             [['deskripsi'], 'string'],
             [['stock_warning'], 'integer'],
@@ -53,7 +54,7 @@ class Barang extends \yii\db\ActiveRecord
             'nama_barang' => 'Nama Barang',
             'kode_satuan' => 'Satuan',
             'deskripsi' => 'Deskripsi',
-            'stock_warning' => 'Stock Warning',
+            'stock_warning' => 'Stok Warning',
             'tampil_stok_kosong' => 'Tampilkan Stok Kosong',
         ];
     }

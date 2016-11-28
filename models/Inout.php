@@ -68,4 +68,8 @@ class Inout extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Barang::className(), ['kode_barang' => 'kode_barang']);
     }
+
+    public static function getCurrentStok($idgudang,$kode_barang){
+        return Inout::find()->andFilterWhere(['=','idgudang',$idgudang])->andFilterWhere(['=','kode_barang',$kode_barang])->sum("qty_in - qty_out");
+    }
 }

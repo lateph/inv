@@ -36,6 +36,7 @@ class DistribusiBarang extends \yii\db\ActiveRecord
     {
         return [
             [['no_distribusi', 'tanggal_distribusi'], 'required'],
+            [['no_distribusi'], 'unique'],
             [['tanggal_distribusi'], 'safe'],
             [['no_distribusi', 'kode_unit', 'kode_project', 'no_request', 'penerima', 'keterangan'], 'string', 'max' => 255],
             [['kode_unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['kode_unit' => 'kode_unit']],

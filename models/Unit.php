@@ -29,6 +29,7 @@ class Unit extends \yii\db\ActiveRecord
     {
         return [
             [['kode_unit', 'unit_kerja'], 'required'],
+            [['kode_unit'], 'unique'],
             [['kode_unit', 'unit_kerja'], 'string', 'max' => 255],
         ];
     }

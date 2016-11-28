@@ -31,6 +31,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             [['kode_project', 'nama_project'], 'required'],
+            [['kode_project'], 'unique'],
             [['tanggal_mulai', 'tanggal_selesai'], 'safe'],
             [['kode_project', 'nama_project', 'lokasi', 'perusahaan'], 'string', 'max' => 255],
         ];

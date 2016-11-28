@@ -83,7 +83,7 @@ class DistribusiController extends Controller
                                 $stok->qty_in = $modelDetail->qty;
                                 $stok->qty_out = 0;
                                 $stok->referensi = $model->no_distribusi;
-                                $stok->stok = $modelDetail->kode_barang;
+                                $stok->stok =  Inout::getCurrentStok($stok->idgudang,$stok->kode_barang) + $stok->qty_in;;
                                 if (! ($flag = $stok->save(false))) {
                                     $transaction->rollBack();
                                     break;
@@ -100,7 +100,7 @@ class DistribusiController extends Controller
                                 $stok->qty_in = 0;
                                 $stok->qty_out = $modelDetail->qty;
                                 $stok->referensi = $model->no_distribusi;
-                                $stok->stok = $modelDetail->kode_barang;
+                                $stok->stok =  Inout::getCurrentStok($stok->idgudang,$stok->kode_barang) - $stok->qty_out;
                                 if (! ($flag = $stok->save(false))) {
                                     $transaction->rollBack();
                                     break;
