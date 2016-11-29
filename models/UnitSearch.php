@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\unit;
+use app\models\Unit;
 
 /**
  * UnitSearch represents the model behind the search form about `app\models\unit`.
  */
-class UnitSearch extends unit
+class UnitSearch extends Unit
 {
     /**
      * @inheritdoc
@@ -40,7 +40,7 @@ class UnitSearch extends unit
      */
     public function search($params)
     {
-        $query = unit::find();
+        $query = Unit::find();
 
         // add conditions that should always apply here
 
