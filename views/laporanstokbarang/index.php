@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+ use kartik\export\ExportMenu;
 use yii\bootstrap\ActiveForm;
  use kartik\date\DatePicker;
 use kartik\select2\Select2Asset;
@@ -93,5 +94,19 @@ Select2Asset::register($this);
 
             // ['class' => 'yii\grid\ActionColumn','template'=>'{view}'],
         ],
-    ]); ?>
+    ]); 
+   echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'kode_barang',
+            'nama_barang',
+            'kategori.kategori_barang',
+            'satuan.satuan_barang',
+            'stok',
+        ]
+    ]);
+
+    ?>
 </div>

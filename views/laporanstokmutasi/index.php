@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+ use kartik\export\ExportMenu;
 use yii\bootstrap\ActiveForm;
  use kartik\date\DatePicker;
 use kartik\select2\Select2Asset;
@@ -137,5 +138,63 @@ Select2Asset::register($this);
 
             // ['class' => 'yii\grid\ActionColumn','template'=>'{view}'],
         ],
-    ]); ?>
+    ]); 
+
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            ['label'=>'Kode','attribute'=>'referensi'],
+            ['label'=>'Referensi','attribute'=>'tipe','value'=>function($row){
+                switch ($row->tipe) {
+                    case 1:
+                        return "Penerimaan";
+                        break;
+
+                    case 2:
+                        return "Distribusi"; 
+                        break;
+
+                    case 3:
+                        return "Adjustment"; 
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+            }],
+            ['label'=>'Unit','attribute'=>'kode_unit','value'=>function($row){
+                switch ($row->kode_unit) {
+                    case 'G001':
+                        return "Gudang";
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+            }],
+            'tanggal',
+            ['label'=>'Unit','attribute'=>'qty_in','value'=>function($row){
+                if($row->qty_in > $row->qty_out){
+                    return 'In';
+                }
+                else{
+                    return 'Out';
+                }
+            }],
+            ['label'=>'QTY','attribute'=>'qty_out','value'=>function($row){
+                if($row->qty_in > $row->qty_out){
+                    return $row->qty_in;
+                }
+                else{
+                    return $row->qty_out; 
+                }
+            }],
+            'stok',
+        ]
+    ]);
+    ?>
 </div>

@@ -1,12 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\bootstrap\ActiveForm;
 use app\models\Barang;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2Asset;
  use kartik\date\DatePicker;
+ use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\LaporanPenerimaanBarangSearch */
@@ -92,5 +93,19 @@ Select2Asset::register($this);
 
             ['class' => 'yii\grid\ActionColumn','template'=>'{view}'],
         ],
-    ]); ?>
+    ]); 
+
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'no_penerimaan',
+            'tanggal_penerimaan',
+            'supplier',
+            'no_po',
+            'pengirim',
+        ]
+    ]);
+    ?>
+
 </div>
