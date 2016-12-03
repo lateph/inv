@@ -10,9 +10,19 @@ use app\models\Barang;
 /* @var $model app\models\Adjustment */
 /* @var $form yii\widgets\ActiveForm */
 Select2Asset::register($this);
+$url = \yii\helpers\Url::to(['ajax/barang']);
 $js = '
 
-$("#adjustment-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US"});
+$("#adjustment-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US",
+    "minimumInputLength" : 3,
+    "ajax" : {
+        "url" : "'.$url.'",
+        "dataType" : "json",
+        "data" : function(params) { return {q:params.term}; }
+    },
+    "escapeMarkup" : function (markup) { return markup; },
+    "templateResult" : function(city) { return city.text; },
+    "templateSelection" : function (city) { return city.text; },});
 $("#adjustment-kondisi").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Kondisi -","language":"en-US"});
 
 ';
@@ -42,7 +52,14 @@ $this->registerJs($js);
     ]);
     ?>
 
-    <?= $form->field($model, "kode_barang")->dropDownList(ArrayHelper::map(Barang::find()->all(), 'kode_barang', 'kodenama'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang form-control'] ) ?>
+    <?php
+        $barang = Barang::findOne(['kode_barang'=>$model->kode_barang]);
+        $ar = [];
+        if($barang){
+            $ar = [$barang->kode_barang=>$barang->kode_barang.' - '.$barang->nama_barang];
+        }
+    ?>
+    <?= $form->field($model, "kode_barang")->dropDownList($ar,['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang form-control'] ) ?>
 
     <?= $form->field($model, "kondisi")->dropDownList(['1'=>'Berkurang','2'=>'Bertambah','3'=>'Service Maintenance Out','4'=>'Service Maintenance In'],['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
 

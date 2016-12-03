@@ -39,6 +39,7 @@ class PenerimaanController extends Controller
     public function actionIndex()
     {
         $model = new PenerimaanBarang();
+        $model->tanggal_penerimaan = date("Y-m-d H:i");
         $modelDetails = [new PenerimaanBarangDetail];
         $modelDetails[0]->qty = 2;
 

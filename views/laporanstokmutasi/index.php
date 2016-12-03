@@ -17,9 +17,18 @@ use app\models\Adjustment;
 
 $this->title = 'Laporan Mutasi Stok';
 $this->params['breadcrumbs'][] = $this->title;
-
+$url = \yii\helpers\Url::to(['ajax/barang']);
 $js = '
-$("#laporanstokmutasisearch-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US"});
+$("#laporanstokmutasisearch-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US",
+    "minimumInputLength" : 3,
+    "ajax" : {
+        "url" : "'.$url.'",
+        "dataType" : "json",
+        "data" : function(params) { return {q:params.term}; }
+    },
+    "escapeMarkup" : function (markup) { return markup; },
+    "templateResult" : function(city) { return city.text; },
+    "templateSelection" : function (city) { return city.text; },});
 $("#laporanstokmutasisearch-kode_kategori").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Kategori -","language":"en-US"});
 $("#laporanstokmutasisearch-kode_satuan").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Satuan -","language":"en-US"});
 $("#laporanstokmutasisearch-tampil_stok_kosong").select2({"theme":"bootstrap","width":"100%","language":"en-US"});
@@ -37,7 +46,14 @@ Select2Asset::register($this);
 
         <?php $form = ActiveForm::begin(['layout' => 'horizontal','id' => 'dynamic-form','method' => 'get']); ?>
 
-        <?= $form->field($searchModel, "kode_barang")->dropDownList(ArrayHelper::map(Barang::find()->all(), 'kode_barang', 'kodenama'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
+        <?php
+            $barang = Barang::findOne(['kode_barang'=>$searchModel->kode_barang]);
+            $ar = [];
+            if($barang){
+                $ar = [$barang->kode_barang=>$barang->kode_barang.' - '.$barang->nama_barang];
+            }
+        ?>
+        <?= $form->field($searchModel, "kode_barang")->dropDownList($ar,['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
 
         <?= $form->field($searchModel, "kode_kategori")->dropDownList(ArrayHelper::map(KategoriBarang::find()->all(), 'kode_kategori', 'kategori_barang'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
 

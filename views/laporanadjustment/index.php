@@ -15,9 +15,18 @@ use app\models\Adjustment;
 
 $this->title = 'Laporan Adjustments';
 $this->params['breadcrumbs'][] = $this->title;
-
+$url = \yii\helpers\Url::to(['ajax/barang']);
 $js = '
-$("#laporanadjustmentsearch-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US"});
+$("#laporanadjustmentsearch-kode_barang").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US",
+    "minimumInputLength" : 3,
+    "ajax" : {
+        "url" : "'.$url.'",
+        "dataType" : "json",
+        "data" : function(params) { return {q:params.term}; }
+    },
+    "escapeMarkup" : function (markup) { return markup; },
+    "templateResult" : function(city) { return city.text; },
+    "templateSelection" : function (city) { return city.text; },});
 $("#laporandistribusibarangsearch-kode_unit").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Unit -","language":"en-US"});
 $("#laporanadjustmentsearch-kondisi").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Kondisi -","language":"en-US"});
 ';
@@ -34,7 +43,14 @@ Select2Asset::register($this);
 
         <?php $form = ActiveForm::begin(['layout' => 'horizontal','id' => 'dynamic-form','method' => 'get']); ?>
 
-        <?= $form->field($searchModel, "kode_barang")->dropDownList(ArrayHelper::map(Barang::find()->all(), 'kode_barang', 'kodenama'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
+        <?php
+            $barang = Barang::findOne(['kode_barang'=>$searchModel->kode_barang]);
+            $ar = [];
+            if($barang){
+                $ar = [$barang->kode_barang=>$barang->kode_barang.' - '.$barang->nama_barang];
+            }
+        ?>
+        <?= $form->field($searchModel, "kode_barang")->dropDownList($ar,['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
 
         <?= $form->field($searchModel, 'tgl1', [
       

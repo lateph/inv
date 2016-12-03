@@ -39,6 +39,7 @@ class DistribusiController extends Controller
     public function actionIndex()
     {
         $model = new DistribusiBarang();
+        $model->tanggal_distribusi = date("Y-m-d H:i");
         $modelDetails = [new DistribusiBarangDetail];
         $modelDetails[0]->qty = 2;
 

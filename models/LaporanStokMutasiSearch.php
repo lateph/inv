@@ -82,6 +82,7 @@ class LaporanStokMutasiSearch extends Barang
         $query->andFilterWhere(['=', 'barang.kode_barang', $this->kode_barang])
             ->andFilterWhere(['=', 'barang.kode_kategori', $this->kode_kategori])
             ->andFilterWhere(['=', 'barang.kode_satuan', $this->kode_satuan])
+            ->andFilterWhere(['=', 'barang.stock_warning', $this->stock_warning])
             ->andFilterWhere(['=', 'unit_gudang.kode_unit','G001'])
             ->andFilterWhere(['like', 'barang.deskripsi', $this->deskripsi])
             ->andFilterWhere(['like', 'barang.nama_barang', $this->nama_barang]);

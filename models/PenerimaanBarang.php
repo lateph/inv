@@ -33,6 +33,7 @@ class PenerimaanBarang extends \yii\db\ActiveRecord
             [['no_penerimaan'], 'unique'],
             [['no_penerimaan', 'tanggal_penerimaan'], 'required'],
             [['tanggal_penerimaan'], 'safe'],
+            [['tanggal_penerimaan'], 'default','value'=>date('Y-m-d H:i')],
             [['no_penerimaan', 'supplier', 'no_po', 'pengirim', 'keterangan'], 'string', 'max' => 255],
         ];
     }

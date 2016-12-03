@@ -12,10 +12,22 @@ use app\models\Project;
 use yii\helpers\Url;
  use kartik\datetime\DateTimePicker;
 
+
+$url = \yii\helpers\Url::to(['ajax/barang']);
 Select2Asset::register($this);
 $js = '
 jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
-    $(item).find("select").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US"});
+    $(item).find("select").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US",
+        "minimumInputLength" : 3,
+        "ajax" : {
+            "url" : "'.$url.'",
+            "dataType" : "json",
+            "data" : function(params) { return {q:params.term}; }
+        },
+        "escapeMarkup" : function (markup) { return markup; },
+        "templateResult" : function(city) { return city.text; },
+        "templateSelection" : function (city) { return city.text; },
+    });
     $(item).find(".val-qty").val(1);
     $(item).find("select").on("select2:select", function(e) { 
         console.log($(item).find("select").val());
@@ -38,7 +50,16 @@ jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
     });
 });
 
-$(".form-options-item").find("select").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US"});
+$(".form-options-item").find("select").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US",
+        "minimumInputLength" : 3,
+        "ajax" : {
+            "url" : "'.$url.'",
+            "dataType" : "json",
+            "data" : function(params) { return {q:params.term}; }
+        },
+        "escapeMarkup" : function (markup) { return markup; },
+        "templateResult" : function(city) { return city.text; },
+        "templateSelection" : function (city) { return city.text; },});
 $("#distribusibarang-kode_unit").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Unit -","language":"en-US"});
 $("#distribusibarang-kode_project").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Project -","language":"en-US"});
 $(".form-options-item").find("select").on("select2:select", function(e) { 
@@ -125,7 +146,14 @@ $this->registerJs($js);
             <?php foreach ($modelDetails as $index => $modelDetail): ?>
                 <tr class="form-options-item">
                     <td>
-                        <?= $form->field($modelDetail, "[{$index}]kode_barang",['template'=>'{input}{error}'])->label(false)->dropDownList(ArrayHelper::map(Barang::find()->all(), 'kode_barang', 'kodenama'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
+                        <?php
+                            $barang = Barang::findOne(['kode_barang'=>$modelDetail->kode_barang]);
+                            $ar = [];
+                            if($barang){
+                                $ar = [$barang->kode_barang=>$barang->kode_barang.' - '.$barang->nama_barang];
+                            }
+                        ?>
+                        <?= $form->field($modelDetail, "[{$index}]kode_barang",['template'=>'{input}{error}'])->label(false)->dropDownList($ar ,['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
                     </td>
                     <td>
                         <?= $form->field($modelDetail, "[{$index}]qty",['template'=>'{input}{error}'])->label(false)->textInput(['maxlength' => true,'type'=>'number','min'=>0,'class'=>'val-qty form-control']) ?>

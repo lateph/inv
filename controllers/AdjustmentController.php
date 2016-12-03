@@ -37,7 +37,7 @@ class AdjustmentController extends Controller
     public function actionIndex()
     {
         $model = new Adjustment();
-
+        $model->tanggal_adjustment = date("Y-m-d H:i");
         if ($model->load(Yii::$app->request->post())) {
             $transaction = \Yii::$app->db->beginTransaction();
 
