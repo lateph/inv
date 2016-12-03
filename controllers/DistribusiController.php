@@ -41,7 +41,6 @@ class DistribusiController extends Controller
         $model = new DistribusiBarang();
         $model->tanggal_distribusi = date("Y-m-d H:i");
         $modelDetails = [new DistribusiBarangDetail];
-        $modelDetails[0]->qty = 2;
 
         if ($model->load(Yii::$app->request->post()) && Yii::$app->request->post('DistribusiBarangDetail') ) {
             $modelDetails = [];

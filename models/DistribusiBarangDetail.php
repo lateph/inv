@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\components\PenerimaanBarangValidator;
+use yii\db\Query;
 
 /**
  * This is the model class for table "distribusi_barang_detail".
@@ -35,13 +36,29 @@ class DistribusiBarangDetail extends \yii\db\ActiveRecord
     {
         return [
             [['no_distribusi', 'kode_barang'], 'required'],
-            [['qty'], 'integer'],
+            [['qty'], 'integer','min'=>1],
+            [['qty'], 'checkStok'],
             [['satuan'], 'safe'],
             [['no_distribusi', 'kode_barang', 'keterangan'], 'string', 'max' => 255],
             [['kode_barang'], 'exist', 'skipOnError' => true, 'targetClass' => Barang::className(), 'targetAttribute' => ['kode_barang' => 'kode_barang']],
             // [['no_distribusi'], 'exist', 'skipOnError' => true, 'targetClass' => DistribusiBarang::className(), 'targetAttribute' => ['no_distribusi' => 'no_distribusi']],
              ['kode_barang',PenerimaanBarangValidator::className()]
         ];
+    }
+
+    public function checkStok($attribute, $params)
+    {
+        $query = new Query;
+        // compose the query
+        $tot = $query->select('sum(qty_in - qty_out)')
+            ->from('inout')
+            ->where(['=','idgudang','G001'])
+            ->where(['=','kode_barang',$this->kode_barang])
+            ->scalar();
+
+        if ($tot < $this->qty) {
+            $this->addError('qty', 'Qty melebihi stok.');
+        }
     }
 
     /**
