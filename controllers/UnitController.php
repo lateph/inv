@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\unit;
+use app\models\Unit;
 use app\models\UnitSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -67,7 +67,7 @@ class UnitController extends Controller
      */
     public function actionCreate()
     {
-        $model = new unit();
+        $model = new Unit();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['update', 'id' => $model->kode_unit]);

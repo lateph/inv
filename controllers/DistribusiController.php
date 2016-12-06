@@ -60,7 +60,7 @@ class DistribusiController extends Controller
 
 
             if(!DistribusiBarangDetail::validateMultiple($modelDetails)){
-                echo "taek";
+                
             }
 
             if ($valid) {
@@ -89,7 +89,7 @@ class DistribusiController extends Controller
                                     break;
                                 }
                                 else{
-                                    echo "error";
+                                    // echo "error";
                                 }
 
                                 $stok = new Inout;
@@ -106,14 +106,14 @@ class DistribusiController extends Controller
                                     break;
                                 }
                                 else{
-                                    echo "error";
+                                    // echo "error";
 
                                 }
                             }
                         }
                     }
                     else{
-                                    echo "error";
+                                    // echo "error";
 
                     }
 
