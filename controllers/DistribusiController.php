@@ -38,18 +38,31 @@ class DistribusiController extends Controller
      */
     public function actionIndex()
     {
+
         $model = new DistribusiBarang();
         $model->tanggal_distribusi = date("Y-m-d H:i");
         $modelDetails = [new DistribusiBarangDetail];
 
         if ($model->load(Yii::$app->request->post()) && Yii::$app->request->post('DistribusiBarangDetail') ) {
+            $transaction = \Yii::$app->db->beginTransaction('REPEATABLE READ');
+
             $modelDetails = [];
             foreach (Yii::$app->request->post('DistribusiBarangDetail') as $key => $value){
                 $modelDetails[$key] = new DistribusiBarangDetail;
             }
             DistribusiBarangDetail::loadMultiple($modelDetails,Yii::$app->request->post() );
+
+            $l = [];
             foreach (Yii::$app->request->post('DistribusiBarangDetail') as $key => $value){
                 $modelDetails[$key]->no_distribusi = $model->no_distribusi;
+                // $md = $modelDetails[$key];
+                // if(!@$l[$md->kode_barang]){
+                //     $l[$md->kode_barang] = true;
+
+                //     $connection = Yii::$app->getDb();
+                //     $command = $connection->createCommand('select * from barang where kode_barang = :kb FOR UPDATE', [':kb' => $md->kode_barang]);
+                //     $result = $command->queryAll();
+                // }
             }
             
 
@@ -58,14 +71,7 @@ class DistribusiController extends Controller
 
             $valid = DistribusiBarangDetail::validateMultiple($modelDetails) && $valid;
 
-
-            if(!DistribusiBarangDetail::validateMultiple($modelDetails)){
-                
-            }
-
             if ($valid) {
-                $transaction = \Yii::$app->db->beginTransaction();
-
                 try {
                     if ($flag = $model->save(false)) {
                         foreach ($modelDetails as $modelDetail) {
@@ -120,13 +126,14 @@ class DistribusiController extends Controller
                     if ($flag) {
                         $transaction->commit();
                         Yii::$app->session->setFlash('success', "Transaksi Berhasil Disimpan");
-                        return $this->redirect(['index']);
+                        // return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
                 }
             }
             else{
+                $transaction->rollBack();
                 foreach ($modelDetails as $key => $value){
                     $modelDetails[$key]->isNewRecord = false;
                     // print_r($modelDetails[$key]->)

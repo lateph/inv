@@ -53,8 +53,12 @@ class DistribusiBarangDetail extends \yii\db\ActiveRecord
         $tot = $query->select('sum(qty_in - qty_out)')
             ->from('inout')
             ->where(['=','idgudang','G001'])
-            ->where(['=','kode_barang',$this->kode_barang])
+            ->andWhere(['=','kode_barang',$this->kode_barang])
             ->scalar();
+
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand('select * from barang where kode_barang = :kb FOR UPDATE', [':kb' => $this->kode_barang]);
+        $result = $command->queryAll();
 
         if ($tot < $this->qty) {
             $this->addError('qty', 'Qty melebihi stok.');
