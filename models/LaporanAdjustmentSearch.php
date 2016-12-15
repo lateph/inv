@@ -14,6 +14,7 @@ class LaporanAdjustmentSearch extends Adjustment
 {
     public $tgl1;
     public $tgl2;
+    public $kode_barang;
     /**
      * @inheritdoc
      */
@@ -21,7 +22,7 @@ class LaporanAdjustmentSearch extends Adjustment
     {
         return [
             [['no_adjustment', 'tanggal_adjustment', 'kode_barang', 'kondisi', 'keterangan', 'kode_unit', 'penanggung_jawab','tgl1','tgl2'], 'safe'],
-            [['qty'], 'integer'],
+            // [['qty'], 'integer'],
         ];
     }
 
@@ -59,19 +60,23 @@ class LaporanAdjustmentSearch extends Adjustment
             return $dataProvider;
         }
 
-        $query->joinWith(['barang']);
+        $query->joinWith(['details']);
+
+
+        // $query->joinWith(['barang']);
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'qty' => $this->qty,
+            // 'qty' => $this->qty,
         ]);
 
         $query->andFilterWhere(['like', 'no_adjustment', $this->no_adjustment])
-            ->andFilterWhere(['=', 'adjustment.kode_barang', $this->kode_barang])
-            ->andFilterWhere(['like', 'kondisi', $this->kondisi])
+            // ->andFilterWhere(['=', 'adjustment.kode_barang', $this->kode_barang])
+            ->andFilterWhere(['=', 'adjustment.kondisi', $this->kondisi])
             ->andFilterWhere(['like', 'keterangan', $this->keterangan])
             ->andFilterWhere(['like', 'kode_unit', $this->kode_unit])
             ->andFilterWhere(['like', 'penanggung_jawab', $this->penanggung_jawab])
+            ->andFilterWhere(['=', 'adjustment_detail.kode_barang', $this->kode_barang])
             ->andFilterWhere(['>=', 'tanggal_adjustment', $this->tgl1]);
 
         if($this->tgl2)

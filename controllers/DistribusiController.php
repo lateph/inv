@@ -126,7 +126,7 @@ class DistribusiController extends Controller
                     if ($flag) {
                         $transaction->commit();
                         Yii::$app->session->setFlash('success', "Transaksi Berhasil Disimpan");
-                        // return $this->redirect(['index']);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

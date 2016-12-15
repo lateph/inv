@@ -18,9 +18,7 @@ class m161129_034042_add_admin extends Migration
 
     public function down()
     {
-        $this->insert('user', [
-            'kode_user' => 'AD01'
-        ]);
+        $this->delete('user', ['kode_user' => 'AD01']);
     }
 
     /*

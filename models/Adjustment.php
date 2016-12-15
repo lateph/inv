@@ -36,11 +36,9 @@ class Adjustment extends \yii\db\ActiveRecord
     {
         return [
             [['no_adjustment'], 'unique'],
-            [['no_adjustment', 'tanggal_adjustment', 'kode_barang', 'kondisi', 'qty', 'keterangan', 'penanggung_jawab'], 'required'],
-            [['tanggal_adjustment'], 'safe'],
-            [['qty'], 'integer'],
-            [['no_adjustment', 'kode_barang', 'kondisi', 'keterangan', 'kode_unit', 'penanggung_jawab'], 'string', 'max' => 255],
-            [['kode_barang'], 'exist', 'skipOnError' => true, 'targetClass' => Barang::className(), 'targetAttribute' => ['kode_barang' => 'kode_barang']],
+            [['no_adjustment', 'tanggal_adjustment', 'kondisi', 'keterangan', 'penanggung_jawab'], 'required'],
+            [['tanggal_adjustment'], 'safe'],   
+            [['no_adjustment', 'kondisi', 'keterangan', 'kode_unit', 'penanggung_jawab'], 'string', 'max' => 255],
         ];
     }
 
@@ -68,5 +66,10 @@ class Adjustment extends \yii\db\ActiveRecord
     public function getBarang()
     {
         return $this->hasOne(Barang::className(), ['kode_barang' => 'kode_barang']);
+    }
+
+    public function getDetails()
+    {
+        return $this->hasMany(AdjustmentDetail::className(), ['no_adjustment' => 'no_adjustment']);
     }
 }

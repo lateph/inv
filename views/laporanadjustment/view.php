@@ -20,18 +20,45 @@ $this->params['breadcrumbs'][] = $this->title;
             'no_adjustment',
             'tanggal_adjustment',
             [
-                'label' => 'Barang',
-                'value' => @$model->barang->kode_barang.' - '.@$model->barang->nama_barang,
-            ],
-            [
                 'label' => 'Kondisi',
                 'value' => @$model::pilihanKondisi[$model->kondisi],
             ],
-            'qty',
             'keterangan',
-            // 'kode_unit',
             'penanggung_jawab',
         ],
     ]) ?>
+
+    <table class="table table-bordered table-striped margin-b-none">
+        <thead>
+            <tr>
+                <th style="width: 120px;">Kode Barang</th>
+                <th style="width: 120px;">Nama Barang</th>
+                <th style="width: 120px;">QTY</th>
+                <th style="width: 120px;">Satuan</th>
+                <th style="width: 500px;">Keterangan</th>
+            </tr>
+        </thead>
+        <tbody class="form-options-body"><!-- widgetContainer -->
+            <?php foreach ($model->details as $index => $modelDetail): ?>
+                <tr class="form-options-item">
+                    <td>
+                        <?= $modelDetail->kode_barang; ?>
+                    </td>
+                    <td>
+                        <?= $modelDetail->barang->nama_barang; ?>
+                    </td>
+                    <td>
+                        <?= $modelDetail->qty; ?>
+                    </td>
+                    <td>
+                        <?= $modelDetail->barang->satuan->satuan_barang; ?>
+                    </td>
+                    <td>
+                        <?= $modelDetail->keterangan; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
 </div>

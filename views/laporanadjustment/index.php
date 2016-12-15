@@ -89,16 +89,16 @@ Select2Asset::register($this);
 
             'no_adjustment',
             'tanggal_adjustment',
-            'barang.nama_barang',
+            // 'barang.nama_barang',
             [
                 'attribute'=>'kondisi',
                 'content'=>function($e){
                     return @Adjustment::pilihanKondisi[$e->kondisi];
                 } 
             ],
-            'qty',
-            // 'keterangan',
-            // 'kode_unit',
+            // 'qty',
+            'keterangan',
+            'penanggung_jawab',
             // 'penanggung_jawab',
 
             ['class' => 'yii\grid\ActionColumn','template'=>'{view}'],
@@ -112,14 +112,15 @@ Select2Asset::register($this);
 
             'no_adjustment',
             'tanggal_adjustment',
-            'barang.nama_barang',
+            // 'barang.nama_barang',
             [
                 'attribute'=>'kondisi',
                 'content'=>function($e){
                     return @Adjustment::pilihanKondisi[$e->kondisi];
                 } 
             ],
-            'qty',
+            'keterangan',
+            'penanggung_jawab',
         ]
     ]);
     ?>
