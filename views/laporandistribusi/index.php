@@ -47,6 +47,7 @@ Select2Asset::register($this);
 
         <?= $form->field($searchModel, "kode_unit")->dropDownList(ArrayHelper::map(Unit::find()->all(), 'kode_unit', 'unit_kerja'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
         <?= $form->field($searchModel, "kode_project")->dropDownList(ArrayHelper::map(Project::find()->all(), 'kode_project', 'nama_project'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
+        <?= $form->field($searchModel, 'issued_by')->textInput(['maxlength' => true]) ?>
 
         <?php
             $barang = Barang::findOne(['kode_barang'=>$searchModel->kode_barang]);
@@ -92,6 +93,7 @@ Select2Asset::register($this);
             'tanggal_distribusi',
             'unit.unit_kerja',
             'no_request',
+            'issued_by',
             // 'keterangan',
 
             ['class' => 'yii\grid\ActionColumn','template'=>'{view}'],
@@ -107,6 +109,7 @@ Select2Asset::register($this);
             'tanggal_distribusi',
             'unit.unit_kerja',
             'no_request',
+            'issued_by',
         ]
     ]);
     ?>

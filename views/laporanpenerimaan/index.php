@@ -42,6 +42,8 @@ Select2Asset::register($this);
 
         <?php $form = ActiveForm::begin(['layout' => 'horizontal','id' => 'dynamic-form','method' => 'get']); ?>
 
+        <?= $form->field($searchModel, 'no_po')->textInput(['maxlength' => true]) ?>
+
         <?= $form->field($searchModel, 'supplier')->textInput(['maxlength' => true]) ?>
 
         <?php
@@ -83,7 +85,7 @@ Select2Asset::register($this);
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            'no_po',
             'no_penerimaan',
             'tanggal_penerimaan',
             'supplier',
@@ -99,6 +101,7 @@ Select2Asset::register($this);
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            'no_po',
             'no_penerimaan',
             'tanggal_penerimaan',
             'supplier',

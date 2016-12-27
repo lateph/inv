@@ -41,6 +41,8 @@ class DistribusiController extends Controller
 
         $model = new DistribusiBarang();
         $model->tanggal_distribusi = date("Y-m-d H:i");
+        $model->create_by = Yii::$app->user->id;
+        $model->create_time = date("Y-m-d H:i:s");
         $modelDetails = [new DistribusiBarangDetail];
 
         if ($model->load(Yii::$app->request->post()) && Yii::$app->request->post('DistribusiBarangDetail') ) {

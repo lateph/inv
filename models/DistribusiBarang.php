@@ -37,7 +37,7 @@ class DistribusiBarang extends \yii\db\ActiveRecord
         return [
             [['no_distribusi', 'tanggal_distribusi'], 'required'],
             [['no_distribusi'], 'unique'],
-            [['tanggal_distribusi'], 'safe'],
+            [['tanggal_distribusi','issued_by','create_by','create_time','date_of_order'], 'safe'],
             [['no_distribusi', 'kode_unit', 'kode_project', 'no_request', 'penerima', 'keterangan'], 'string', 'max' => 255],
             [['kode_unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['kode_unit' => 'kode_unit']],
             [['kode_unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['kode_unit' => 'kode_unit']],
@@ -57,6 +57,7 @@ class DistribusiBarang extends \yii\db\ActiveRecord
             'no_request' => 'No Request',
             'penerima' => 'Penerima',
             'keterangan' => 'Keterangan',
+            'issued_by' => 'Issued By',
             'tgl1' => 'Periode Distribusi',
         ];
     }

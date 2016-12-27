@@ -30,6 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'no_request',
             'penerima',
             'keterangan',
+            'issued_by',
+            'date_of_order',
         ],
     ]) ?>
 

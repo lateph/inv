@@ -10,7 +10,8 @@ use app\models\Barang;
 use app\models\Unit;
 use app\models\Project;
 use yii\helpers\Url;
- use kartik\datetime\DateTimePicker;
+use kartik\datetime\DateTimePicker;
+use kartik\date\DatePicker;
 
 
 $url = \yii\helpers\Url::to(['ajax/barang']);
@@ -111,6 +112,23 @@ $this->registerJs($js);
     <?= $form->field($model, "kode_project")->dropDownList(ArrayHelper::map(Project::find()->all(), 'kode_project', 'nama_project')) ?>
 
     <?= $form->field($model, 'no_request')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'date_of_order', [
+      
+            ])->widget(DatePicker::classname(),[
+      'options' => ['placeholder' => ''],
+      'value' => date('d-M-Y'),
+      'readonly' => true,
+      
+      'pluginOptions' => [
+        'autoclose'=>true,
+        'format' => 'yyyy-mm-dd',
+        'todayHighlight' => TRUE,
+    ]
+    ]);
+    ?>
+
+    <?= $form->field($model, 'issued_by')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'penerima')->textInput(['maxlength' => true]) ?>
 
