@@ -98,7 +98,7 @@ class LaporandistribusiController extends Controller
 
         $objPHPExcel = new \PHPExcel();
         $objReader = \PHPExcel_IOFactory::createReader('Excel5');
-        $objPHPExcel = $objReader->load(Yii::getAlias('@app')."\delivery-note.xls");
+        $objPHPExcel = $objReader->load(Yii::getAlias('@app')."/delivery-note.xls");
         $objPHPExcel->getActiveSheet()->setCellValue('B5', $model->no_distribusi);
         $objPHPExcel->getActiveSheet()->setCellValue('D5', $model->no_request);
         $objPHPExcel->getActiveSheet()->setCellValue('B8', Yii::$app->formatter->format($model->tanggal_distribusi, 'date'));
