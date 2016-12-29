@@ -93,6 +93,36 @@ class LaporandistribusiController extends Controller
         }
     }
 
+    public function actionPrint($id){
+        $model = $this->findModel($id);
+
+        $objPHPExcel = new \PHPExcel();
+        $objReader = \PHPExcel_IOFactory::createReader('Excel5');
+        $objPHPExcel = $objReader->load(Yii::getAlias('@app')."\delivery-note.xls");
+        $objPHPExcel->getActiveSheet()->setCellValue('B5', $model->no_distribusi);
+        $objPHPExcel->getActiveSheet()->setCellValue('D5', $model->no_request);
+        $objPHPExcel->getActiveSheet()->setCellValue('B8', Yii::$app->formatter->format($model->tanggal_distribusi, 'date'));
+        $objPHPExcel->getActiveSheet()->setCellValue('D8', Yii::$app->formatter->format($model->date_of_order, 'date'));
+        $objPHPExcel->getActiveSheet()->setCellValue('D11', $model->issued_by);
+
+        $baseRow = 22;
+        foreach($model->details as $r => $dataRow) {
+            $row = $baseRow + $r;
+            $objPHPExcel->getActiveSheet()->insertNewRowBefore($row,1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.$row, $r+1)
+                                      ->setCellValue('C'.$row, $dataRow->barang->nama_barang)
+                                      ->setCellValue('G'.$row, $dataRow->qty)
+                                      ->setCellValue('H'.$row, $dataRow->barang->satuan->singkatan);
+                                      // ->setCellValue('E'.$row, '=C'.$row.'*D'.$row);
+        }
+        $objPHPExcel->getActiveSheet()->removeRow($baseRow-1,1);
+
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'HTML');
+        // header('Content-type: application/vnd.ms-excel');
+        // header('Content-Disposition: attachment; filename="file.xls"');
+        $objWriter->save('php://output');
+    }
+
     /**
      * Deletes an existing DistribusiBarang model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

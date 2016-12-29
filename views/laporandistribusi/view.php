@@ -9,10 +9,27 @@ use yii\widgets\DetailView;
 $this->title = $model->no_distribusi;
 $this->params['breadcrumbs'][] = ['label' => 'Laporan Distribusi', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$url = \yii\helpers\Url::to(['laporandistribusi/print','id'=>$model->no_distribusi]);
+$jsPrint = "function printExternal(url) {
+    var printWindow = window.open( url, 'Print', 'left=200, top=200, width=950, height=500, toolbar=0, resizable=0');
+    printWindow.addEventListener('load', function(){
+        printWindow.print();
+    }, true);
+}
+$('#print').click(function(){
+    printExternal('".$url."');
+});
+";
+
+$this->registerJs($jsPrint);
 ?>
+
+
 <div class="distribusi-barang-view">
 
     <h1>Detail Distribusi Barang (<?= Html::encode($this->title) ?>)</h1>
+
+    <button class="btn btn-default" type="submit" id="print">Print</button>
 
     <?= DetailView::widget([
         'model' => $model,
