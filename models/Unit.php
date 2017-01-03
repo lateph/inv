@@ -31,6 +31,7 @@ class Unit extends \yii\db\ActiveRecord
             [['kode_unit', 'unit_kerja'], 'required'],
             [['kode_unit'], 'unique'],
             [['kode_unit', 'unit_kerja'], 'string', 'max' => 255],
+            [['delivery_address'], 'string', 'max' => 512],
         ];
     }
 
@@ -40,8 +41,9 @@ class Unit extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'kode_unit' => 'Kode Unit',
-            'unit_kerja' => 'Unit Kerja',
+            'kode_unit' => 'Kode Customer',
+            'unit_kerja' => 'Customer',
+            'delivery_address' => 'Delivery Address',
         ];
     }
 

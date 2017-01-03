@@ -37,7 +37,7 @@ AppAsset::register($this);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="index.html">Inventory</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -67,22 +67,25 @@ AppAsset::register($this);
                             <a href="#"><i class="fa fa-table fa-fw"></i> Master<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?= Url::to(['satuan/index']); ?>">Satuan</a>
+                                    <a href="<?= Url::to(['/satuan/index']); ?>">Satuan</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['kategoribarang/index']); ?>">Kategori Barang</a>
+                                    <a href="<?= Url::to(['/kategoribarang/index']); ?>">Kategori Barang</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['barang/index']); ?>">Barang</a>
+                                    <a href="<?= Url::to(['/barang/index']); ?>">Barang</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['project/index']); ?>">Project</a>
+                                    <a href="<?= Url::to(['/project/index']); ?>">Project</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['unit/index']); ?>">Unit</a>
+                                    <a href="<?= Url::to(['/unit/index']); ?>">Customer</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['user/index']); ?>">User</a>
+                                    <a href="<?= Url::to(['/user/index']); ?>">User</a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['/backuprestore']); ?>">Backup Restore</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -91,13 +94,13 @@ AppAsset::register($this);
                             <a href="#"><i class="fa fa-table fa-fw"></i> Transaksi<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?= Url::to(['penerimaan/index']); ?>">Penerimaan Barang</a>
+                                    <a href="<?= Url::to(['/penerimaan/index']); ?>">Penerimaan Barang</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['distribusi/index']); ?>">Distribusi Barang</a>
+                                    <a href="<?= Url::to(['/distribusi/index']); ?>">Distribusi Barang</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['adjustment/index']); ?>">Adjustment</a>
+                                    <a href="<?= Url::to(['/adjustment/index']); ?>">Adjustment</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -106,22 +109,22 @@ AppAsset::register($this);
                             <a href="#"><i class="fa fa-table fa-fw"></i> Laporan<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?= Url::to(['laporanpenerimaan/index']); ?>">Laporan Penerimaan</a>
+                                    <a href="<?= Url::to(['/laporanpenerimaan/index']); ?>">Laporan Penerimaan</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['laporandistribusi/index']); ?>">Laporan Distribusi</a>
+                                    <a href="<?= Url::to(['/laporandistribusi/index']); ?>">Laporan Distribusi</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['laporanadjustment/index']); ?>">Laporan Adjustment</a>
+                                    <a href="<?= Url::to(['/laporanadjustment/index']); ?>">Laporan Adjustment</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['laporanstokbarang/index']); ?>">Laporan Stok Barang</a>
+                                    <a href="<?= Url::to(['/laporanstokbarang/index']); ?>">Laporan Stok Barang</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['laporanstokmutasi/index']); ?>">Laporan Mutasi Stok</a>
+                                    <a href="<?= Url::to(['/laporanstokmutasi/index']); ?>">Laporan Mutasi Stok</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['laporanstokwarning/index']); ?>">Laporan Stok Barang Warning</a>
+                                    <a href="<?= Url::to(['/laporanstokwarning/index']); ?>">Laporan Stok Barang Warning</a>
                                 </li>
 
                             </ul>

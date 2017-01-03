@@ -102,8 +102,10 @@ class LaporandistribusiController extends Controller
         $objPHPExcel->getActiveSheet()->setCellValue('B5', $model->no_distribusi);
         $objPHPExcel->getActiveSheet()->setCellValue('D5', $model->no_request);
         $objPHPExcel->getActiveSheet()->setCellValue('B8', Yii::$app->formatter->format($model->tanggal_distribusi, 'date'));
-        $objPHPExcel->getActiveSheet()->setCellValue('D8', Yii::$app->formatter->format($model->date_of_order, 'date'));
+        $objPHPExcel->getActiveSheet()->setCellValue('D8', $model->date_of_order ? Yii::$app->formatter->format($model->date_of_order, 'date') : ' - ' ) ;
         $objPHPExcel->getActiveSheet()->setCellValue('D11', $model->issued_by);
+        $objPHPExcel->getActiveSheet()->setCellValue('B11', $model->unit->delivery_address);
+        $objPHPExcel->getActiveSheet()->setCellValue('B20', $model->project->nama_project);
 
         $baseRow = 22;
         foreach($model->details as $r => $dataRow) {

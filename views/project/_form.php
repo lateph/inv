@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use app\models\Unit;
 use yii\bootstrap\ActiveForm; 
 
 /* @var $this yii\web\View */
@@ -31,7 +33,7 @@ use yii\bootstrap\ActiveForm;
         'options' => ['class' => 'form-control'],
     ]) ?>
 
-    <?= $form->field($model, 'perusahaan')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'perusahaan')->dropDownList(ArrayHelper::map(Unit::find()->all(), 'kode_unit', 'unit_kerja'),['prompt'=>' - Perusahaan -']) ?>
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-10">

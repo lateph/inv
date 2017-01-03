@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\unit */
 
-$this->title = 'Create Unit';
-$this->params['breadcrumbs'][] = ['label' => 'Unit', 'url' => ['index']];
+$this->title = 'Create Customer';
+$this->params['breadcrumbs'][] = ['label' => 'Customer', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="unit-create">

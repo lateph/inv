@@ -92,8 +92,8 @@ class AdjustmentController extends Controller
 
                     if ($flag) {
                         $transaction->commit();
-                        Yii::$app->session->setFlash('success', "Transaksi Berhasil Disimpan");
-                        return $this->redirect(['index']);
+                        // Yii::$app->session->setFlash('success', "Transaksi Berhasil Disimpan");
+                        return $this->redirect(['laporanadjustment/view','id'=>$model->no_adjustment]);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

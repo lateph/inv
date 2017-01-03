@@ -29,7 +29,10 @@ $this->registerJs($jsPrint);
 
     <h1>Detail Distribusi Barang (<?= Html::encode($this->title) ?>)</h1>
 
-    <button class="btn btn-default" type="submit" id="print">Print</button>
+    <div class="btn-group" role="group" aria-label="..." style="margin-bottom:20px">
+        <a type="button" class="btn btn-success" href="<?=\yii\helpers\Url::to(['distribusi/index'])?>">Distribusi Baru</a>
+        <button class="btn btn-default" type="submit" id="print">Print</button>
+    </div>
 
     <?= DetailView::widget([
         'model' => $model,

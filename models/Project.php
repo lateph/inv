@@ -51,4 +51,9 @@ class Project extends \yii\db\ActiveRecord
             'perusahaan' => 'Perusahaan',
         ];
     }
+
+    public function getUnit()
+    {
+        return $this->hasOne(Unit::className(), ['kode_unit' => 'perusahaan']);
+    }
 }

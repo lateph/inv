@@ -89,8 +89,8 @@ class PenerimaanController extends Controller
 
                     if ($flag) {
                         $transaction->commit();
-                        Yii::$app->session->setFlash('success', "Transaksi Berhasil Disimpan");
-                        return $this->redirect(['index']);
+                        // Yii::$app->session->setFlash('success', "Transaksi Berhasil Disimpan");
+                        return $this->redirect(['laporanpenerimaan/view','id'=>$model->no_penerimaan]);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

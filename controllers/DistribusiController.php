@@ -5,10 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\DistribusiBarang;
 use app\models\Barang;
+use app\models\Project;
 use app\models\Inout;
 use app\models\DistribusiBarangDetail;
 use app\models\BarangSearchDistribusiBarangSearch;
 use yii\web\Controller;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -127,8 +129,9 @@ class DistribusiController extends Controller
 
                     if ($flag) {
                         $transaction->commit();
-                        Yii::$app->session->setFlash('success', "Transaksi Berhasil Disimpan");
-                        return $this->redirect(['index']);
+                        // Yii::$app->session->setFlash('success', "Transaksi Berhasil Disimpan");
+                        return $this->redirect(['laporandistribusi/view','id'=>$model->no_distribusi]);
+
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -177,6 +180,21 @@ class DistribusiController extends Controller
         $b = Barang::find()
                 ->where(['kode_barang' => $id])
                 ->one();
+
+        return $b;
+    }
+
+    public function actionGetproject()
+    {
+        // some parameter from JS
+        // ex. 127.0.0.1/?r=my-controller/quote&query=3
+        // $queryTerm = 3;
+        $queryTerm = Yii::$app->request->get('query');
+        Yii::$app->response->format = 'json';
+        $id = Yii::$app->getRequest()->getQueryParam('id');
+        $b = Project::find()
+                ->where(['perusahaan' => $id])
+                ->all();
 
         return $b;
     }

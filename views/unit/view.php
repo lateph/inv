@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\unit */
 
 $this->title = $model->kode_unit;
-$this->params['breadcrumbs'][] = ['label' => 'Units', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Customer', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="unit-view">

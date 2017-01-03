@@ -38,14 +38,15 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+
+        
     ],
     'params' => $params,
     'modules' => [
@@ -56,7 +57,8 @@ $config = [
             // message source
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
-        ]
+        ],
+         'backuprestore' => [ 'class' => '\oe\modules\backuprestore\Module', 'layout' => '@app/views/layouts/main' ],
     ],
 ];
 

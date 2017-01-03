@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Unit;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProjectSearch */
@@ -29,7 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'lokasi',
             'tanggal_mulai',
             'tanggal_selesai',
-            'perusahaan',
+            [
+                'attribute' => 'perusahaan',
+                'value' => 'unit.unit_kerja',
+                'filter' => ArrayHelper::map(Unit::find()->all(), 'kode_unit', 'unit_kerja')
+            ],
 
              ['class' => 'yii\grid\ActionColumn','template'=>'{update} {delete}'],
         ],

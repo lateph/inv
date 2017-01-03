@@ -16,6 +16,8 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'unit_kerja')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'delivery_address')->textArea(['maxlength' => true]) ?>
+
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-10">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

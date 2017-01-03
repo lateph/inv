@@ -14,6 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1>Detail Penerimaan Barang (<?= Html::encode($this->title) ?>)</h1>
 
+    <div class="btn-group" role="group" aria-label="..." style="margin-bottom:20px">
+      <a type="button" class="btn btn-success" href="<?=\yii\helpers\Url::to(['penerimaan/index'])?>">Penerimaan Baru</a>
+    </div>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

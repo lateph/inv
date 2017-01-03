@@ -41,6 +41,7 @@ class ProjectSearch extends Project
     public function search($params)
     {
         $query = Project::find();
+        $query->joinWith(['unit']);
 
         // add conditions that should always apply here
 

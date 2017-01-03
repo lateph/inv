@@ -50,7 +50,7 @@ jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
         jQuery(this).html("Address: " + (index + 1))
     });
 });
-
+prjs = [];
 $(".form-options-item").find("select").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Barang -","language":"en-US",
         "minimumInputLength" : 3,
         "ajax" : {
@@ -77,6 +77,28 @@ $(".form-options-item").find("select").on("select2:select", function(e) {
             }
         })
     });
+$("#distribusibarang-kode_unit").on("select2:select", function(e) { 
+    console.log($(this).val());
+    var myS = $(this);
+    $.ajax({
+        url: "'.Url::to(['distribusi/getproject']).'",
+        dataType: "json",
+        data :  {
+                id : $(this).val()
+        },
+        success: function(data) {
+            var $el = $("#distribusibarang-kode_project");
+            $el.empty(); // remove old options
+            console.log(data);
+            $.each(data, function(key,value) {
+                $el.append("<option></option>");
+                $el.append($("<option></option>")
+                 .attr("value", value.kode_project).text(value.nama_project));
+            });
+        }
+    })
+});
+
 ';
 
 $this->registerJs($js);
@@ -107,9 +129,15 @@ $this->registerJs($js);
     ]);
     ?>
 
-    <?= $form->field($model, "kode_unit")->dropDownList(ArrayHelper::map(Unit::find()->all(), 'kode_unit', 'unit_kerja')) ?>
+    <?= $form->field($model, "kode_unit")->dropDownList(ArrayHelper::map(Unit::find()->all(), 'kode_unit', 'unit_kerja'),['prompt'=>''] ) ?>
 
-    <?= $form->field($model, "kode_project")->dropDownList(ArrayHelper::map(Project::find()->all(), 'kode_project', 'nama_project')) ?>
+    <?php 
+        $prjs = [];
+        if($model->kode_unit){
+            $prjs = ArrayHelper::map(Project::find()->where(['perusahaan' => $model->kode_unit])->all(), 'kode_project', 'nama_project');
+        }
+    ?>
+    <?= $form->field($model, "kode_project")->dropDownList($prjs,['prompt'=>'']) ?>
 
     <?= $form->field($model, 'no_request')->textInput(['maxlength' => true]) ?>
 

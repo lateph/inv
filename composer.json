@@ -13,6 +13,13 @@
         "source": "https://github.com/yiisoft/yii2"
     },
     "minimum-stability": "stable",
+    "repositories":
+    [
+        {
+            "type": "vcs",
+            "url": "https://github.com/lateph/yii2-backuprestore"
+        }
+    ],
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.5",
@@ -28,7 +35,8 @@
         "kartik-v/yii2-field-range": "*",
         "kartik-v/yii2-export": "@dev",
         "kartik-v/yii2-mpdf": "dev-master",
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpexcel": "^1.8",
+        "open-ecommerce/yii2-backuprestore": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
