@@ -65,28 +65,35 @@ class AdjustmentController extends Controller
                 try {
                     if ($flag = $model->save(false)) {
                         foreach ($modelDetails as $modelDetail) {
-                            $stok = new Inout;
-                            $stok->idgudang = 'G001';
-                            $stok->kode_barang = $modelDetail->kode_barang;
-                            $stok->tanggal = $model->tanggal_adjustment;
-                            $stok->tipe = '3';
 
-                            if($modelDetail->kondisi == 1 or $modelDetail->kondisi == 3){
-                                $stok->qty_in = 0;
-                                $stok->qty_out = $modelDetail->qty;
-                            }
-                            if($modelDetail->kondisi == 2 or $modelDetail->kondisi == 4){
-                                $stok->qty_in = $modelDetail->qty;
-                                $stok->qty_out = 0;
-                            }
-
-                            $stok->referensi = $modelDetail->no_adjustment;
-                            $stok->stok =  Inout::getCurrentStok($stok->idgudang,$stok->kode_barang) + ($stok->qty_in - $stok->qty_out);
-                            if (! ($flag = $stok->save(false))) {
+                             if (! ($flag = $modelDetail->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
+                            else{
 
+                                $stok = new Inout;
+                                $stok->idgudang = 'G001';
+                                $stok->kode_barang = $modelDetail->kode_barang;
+                                $stok->tanggal = $model->tanggal_adjustment;
+                                $stok->tipe = '3';
+
+                                if($modelDetail->kondisi == 1 or $modelDetail->kondisi == 3){
+                                    $stok->qty_in = 0;
+                                    $stok->qty_out = $modelDetail->qty;
+                                }
+                                if($modelDetail->kondisi == 2 or $modelDetail->kondisi == 4){
+                                    $stok->qty_in = $modelDetail->qty;
+                                    $stok->qty_out = 0;
+                                }
+
+                                $stok->referensi = $modelDetail->no_adjustment;
+                                $stok->stok =  Inout::getCurrentStok($stok->idgudang,$stok->kode_barang) + ($stok->qty_in - $stok->qty_out);
+                                if (! ($flag = $stok->save(false))) {
+                                    $transaction->rollBack();
+                                    break;
+                                }
+                            }
                         }
                     }
 
