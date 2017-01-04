@@ -1077,12 +1077,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lateph/yii2-backuprestore.git",
-                "reference": "1e3f630ca9d4738ef051284f04203b7a3b661383"
+                "reference": "2b1997fc0e058006dcef10c41b47b33d8963e1ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lateph/yii2-backuprestore/zipball/1e3f630ca9d4738ef051284f04203b7a3b661383",
-                "reference": "1e3f630ca9d4738ef051284f04203b7a3b661383",
+                "url": "https://api.github.com/repos/lateph/yii2-backuprestore/zipball/2b1997fc0e058006dcef10c41b47b33d8963e1ac",
+                "reference": "2b1997fc0e058006dcef10c41b47b33d8963e1ac",
                 "shasum": ""
             },
             "require": {
@@ -1113,7 +1113,7 @@
             "support": {
                 "source": "https://github.com/lateph/yii2-backuprestore/tree/master"
             },
-            "time": "2017-01-03 12:35:46"
+            "time": "2017-01-04 07:16:23"
         },
         {
             "name": "phpoffice/phpexcel",
