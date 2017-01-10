@@ -36,7 +36,8 @@
         "kartik-v/yii2-export": "@dev",
         "kartik-v/yii2-mpdf": "dev-master",
         "phpoffice/phpexcel": "^1.8",
-        "open-ecommerce/yii2-backuprestore": "dev-master"
+        "open-ecommerce/yii2-backuprestore": "dev-master",
+        "kartik-v/yii2-widget-fileinput": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
