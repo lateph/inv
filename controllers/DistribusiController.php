@@ -50,6 +50,9 @@ class DistribusiController extends Controller
         if ($model->load(Yii::$app->request->post()) && Yii::$app->request->post('DistribusiBarangDetail') ) {
             $transaction = \Yii::$app->db->beginTransaction('REPEATABLE READ');
 
+            if($model->kode_project == ''){
+                $model->kode_project = null;
+            }
             $modelDetails = [];
             foreach (Yii::$app->request->post('DistribusiBarangDetail') as $key => $value){
                 $modelDetails[$key] = new DistribusiBarangDetail;
