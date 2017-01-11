@@ -33,6 +33,8 @@ $("#laporanstokmutasisearch-kode_barang").select2({"allowClear":true,"theme":"bo
 $("#laporanstokmutasisearch-kode_kategori").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Kategori -","language":"en-US"});
 $("#laporanstokmutasisearch-kode_satuan").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Satuan -","language":"en-US"});
 $("#laporanstokmutasisearch-tampil_stok_kosong").select2({"theme":"bootstrap","width":"100%","language":"en-US"});
+$("#laporanstokmutasisearch-tipeio").select2({"allowClear":true,"theme":"bootstrap","width":"100%","language":"en-US","placeholder":"- Pilih In/Out -"});
+$("#laporanstokmutasisearch-referensi").select2({"allowClear":true,"theme":"bootstrap","width":"100%","language":"en-US","placeholder":"- Pilih In/Out -"});
 ';
 
 $this->registerJs($js);
@@ -56,16 +58,9 @@ Select2Asset::register($this);
         ?>
         <?= $form->field($searchModel, "kode_barang")->dropDownList($ar,['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
 
-        <?= $form->field($searchModel, "kode_kategori")->dropDownList(ArrayHelper::map(KategoriBarang::find()->all(), 'kode_kategori', 'kategori_barang'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
+        <?= $form->field($searchModel, "tipeIO")->dropDownList(['in'=>'In','out'=>'Out'],['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
 
-        <?= $form->field($searchModel, 'nama_barang')->textInput() ?>
-
-
-        <?= $form->field($searchModel, "kode_satuan")->dropDownList(ArrayHelper::map(Satuan::find()->all(), 'kode_satuan', 'satuan_barang'),['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
-
-        <?= $form->field($searchModel, 'deskripsi')->textarea(['rows' => 6]) ?>
-
-        <?= $form->field($searchModel, 'stock_warning')->textInput() ?>    
+        <?= $form->field($searchModel, "referensi")->dropDownList(['1'=>'penerimaan','2'=>'distribusi','3'=>'adjustment'],['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-10">
@@ -115,7 +110,7 @@ Select2Asset::register($this);
                 }
             }],
             'tanggal',
-            ['label'=>'Unit','attribute'=>'qty_in','value'=>function($row){
+            ['label'=>'Tipe','attribute'=>'qty_in','value'=>function($row){
                 if($row->qty_in > $row->qty_out){
                     return 'In';
                 }
@@ -132,6 +127,28 @@ Select2Asset::register($this);
                 }
             }],
             'stok',
+            ['class' => 'yii\grid\ActionColumn','template'=>'{view}',
+            'buttons'=>[
+                'view' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                'title' => Yii::t('app', 'View'),
+                    ]);
+                },
+            ],
+            'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'view') {
+                        if($model->tipe == 1){
+                            return \yii\helpers\Url::to(['/laporanpenerimaan/view','id'=>$model->referensi]);
+                        }
+                        if($model->tipe == 2){
+                            return \yii\helpers\Url::to(['/laporandistribusi/view','id'=>$model->referensi]);
+                        }
+                        if($model->tipe == 3){
+                            return \yii\helpers\Url::to(['/laporanadjustment/view','id'=>$model->referensi]);
+                        }
+                    }
+                  }
+            ],
             // 'keterangan',
             // 'kode_unit',
             // 'penanggung_jawab',
@@ -177,7 +194,7 @@ Select2Asset::register($this);
                 }
             }],
             'tanggal',
-            ['label'=>'Unit','attribute'=>'qty_in','value'=>function($row){
+            ['label'=>'Tipe','attribute'=>'qty_in','value'=>function($row){
                 if($row->qty_in > $row->qty_out){
                     return 'In';
                 }

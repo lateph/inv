@@ -22,13 +22,15 @@ class LaporanStokMutasiSearch extends Barang
     public $id;
     public $tipe;
     public $tanggal;
+    public $tipeIO;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['kode_barang', 'kode_kategori', 'kode_satuan', 'deskripsi','tampil_stok_kosong','nama_barang','stock_warning'], 'safe'],
+            [['kode_barang', 'kode_kategori', 'kode_satuan', 'deskripsi','tampil_stok_kosong','nama_barang','stock_warning','tipeIO','referensi'], 'safe'],
         ];
     }
 
@@ -76,11 +78,20 @@ class LaporanStokMutasiSearch extends Barang
         $query->join('inner join','inout','`inout`.kode_barang = barang.kode_barang and `inout`.idgudang = unit_gudang.kode_unit');
 
         $query->orderBy('tanggal asc');
+
+        if($this->tipeIO == 'in'){
+            $query->andWhere('`inout`.qty_in > `inout`.qty_out');
+        }
+        if($this->tipeIO == 'out'){
+            $query->andWhere('`inout`.qty_in < `inout`.qty_out');
+        }
+
         // 
         // $query->groupBy(['barang.kode_barang', 'unit_gudang.kode_unit']);
 
         $query->andFilterWhere(['=', 'barang.kode_barang', $this->kode_barang])
             ->andFilterWhere(['=', 'barang.kode_kategori', $this->kode_kategori])
+            ->andFilterWhere(['=', '`inout`.tipe', $this->referensi])
             ->andFilterWhere(['=', 'barang.kode_satuan', $this->kode_satuan])
             ->andFilterWhere(['=', 'barang.stock_warning', $this->stock_warning])
             ->andFilterWhere(['=', 'unit_gudang.kode_unit','G001'])
