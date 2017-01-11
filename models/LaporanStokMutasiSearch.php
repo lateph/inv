@@ -24,14 +24,25 @@ class LaporanStokMutasiSearch extends Barang
     public $tanggal;
     public $tipeIO;
 
+    public $tgl1;
+    public $tgl2;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['kode_barang', 'kode_kategori', 'kode_satuan', 'deskripsi','tampil_stok_kosong','nama_barang','stock_warning','tipeIO','referensi'], 'safe'],
+            [['kode_barang', 'kode_kategori', 'kode_satuan', 'deskripsi','tampil_stok_kosong','nama_barang','stock_warning','tipeIO','referensi','tgl1','tgl2'], 'safe'],
         ];
+    }
+
+    public function attributeLabels()
+    {
+        $attr = parent::attributeLabels();
+        $attr['tgl1'] ='Periode Mutasi';
+        $attr['tipeIO'] ='Tipe';
+        return $attr;
     }
 
     /**
@@ -86,6 +97,9 @@ class LaporanStokMutasiSearch extends Barang
             $query->andWhere('`inout`.qty_in < `inout`.qty_out');
         }
 
+        if($this->tgl2)
+            $query->andFilterWhere(['<=', 'tanggal', $this->tgl2.' 23:59']);
+
         // 
         // $query->groupBy(['barang.kode_barang', 'unit_gudang.kode_unit']);
 
@@ -96,7 +110,9 @@ class LaporanStokMutasiSearch extends Barang
             ->andFilterWhere(['=', 'barang.stock_warning', $this->stock_warning])
             ->andFilterWhere(['=', 'unit_gudang.kode_unit','G001'])
             ->andFilterWhere(['like', 'barang.deskripsi', $this->deskripsi])
-            ->andFilterWhere(['like', 'barang.nama_barang', $this->nama_barang]);
+            ->andFilterWhere(['like', 'barang.nama_barang', $this->nama_barang])
+            ->andFilterWhere(['>=', 'tanggal', $this->tgl1]);
+
 
         // $posts = $dataProvider->getModels();
 

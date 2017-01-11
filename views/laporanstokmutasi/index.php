@@ -62,6 +62,22 @@ Select2Asset::register($this);
 
         <?= $form->field($searchModel, "referensi")->dropDownList(['1'=>'penerimaan','2'=>'distribusi','3'=>'adjustment'],['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>
 
+        <?= $form->field($searchModel, 'tgl1', [
+      
+                    ])->widget(DatePicker::classname(),[
+                         'type' => DatePicker::TYPE_RANGE,
+                      'options' => ['placeholder' => ''],
+                      'value' => date('d-M-Y'),
+                      'readonly' => true,
+                        'attribute2'=>'tgl2',
+                      'pluginOptions' => [
+                        'autoclose'=>true,
+                        'format' => 'yyyy-mm-dd',
+                        'todayHighlight' => TRUE,
+                    ]
+                    ]);
+            ?>
+            
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-10">
                 <?= Html::submitButton("Search", ['class' =>'btn btn-primary']) ?>
