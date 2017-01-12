@@ -34,7 +34,7 @@ $("#laporanstokmutasisearch-kode_kategori").select2({"allowClear":true,"theme":"
 $("#laporanstokmutasisearch-kode_satuan").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Satuan -","language":"en-US"});
 $("#laporanstokmutasisearch-tampil_stok_kosong").select2({"theme":"bootstrap","width":"100%","language":"en-US"});
 $("#laporanstokmutasisearch-tipeio").select2({"allowClear":true,"theme":"bootstrap","width":"100%","language":"en-US","placeholder":"- Pilih In/Out -"});
-$("#laporanstokmutasisearch-referensi").select2({"allowClear":true,"theme":"bootstrap","width":"100%","language":"en-US","placeholder":"- Pilih In/Out -"});
+$("#laporanstokmutasisearch-referensi").select2({"allowClear":true,"theme":"bootstrap","width":"100%","language":"en-US","placeholder":"- Pilih Referensi -"});
 ';
 
 $this->registerJs($js);

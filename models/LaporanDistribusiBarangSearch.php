@@ -21,7 +21,7 @@ class LaporanDistribusiBarangSearch extends DistribusiBarang
     public function rules()
     {
         return [
-            [['no_distribusi', 'kode_unit', 'kode_barang', 'no_po', 'pengirim', 'keterangan','kode_barang','tgl1','tgl2','issued_by'], 'safe'],
+            [['no_distribusi', 'kode_unit', 'kode_barang', 'no_po', 'pengirim', 'keterangan','kode_barang','tgl1','tgl2','issued_by','no_request'], 'safe'],
         ];
     }
 
@@ -72,6 +72,7 @@ class LaporanDistribusiBarangSearch extends DistribusiBarang
 
         $query->andFilterWhere(['like', 'no_distribusi', $this->no_distribusi])
             ->andFilterWhere(['like', 'issued_by', $this->issued_by])
+            ->andFilterWhere(['like', 'no_request', $this->no_request])
             ->andFilterWhere(['like', 'distribusi_barang.kode_unit', $this->kode_unit])
             ->andFilterWhere(['like', 'kode_project', $this->kode_project])
             ->andFilterWhere(['=', 'distribusi_barang_detail.kode_barang', $this->kode_barang])
