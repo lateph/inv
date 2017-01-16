@@ -36,6 +36,7 @@ class LaporanstokbarangController extends Controller
     public function actionIndex()
     {
         $searchModel = new LaporanStokBarangSearch();
+        $searchModel->tampil_stok_kosong = 1;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

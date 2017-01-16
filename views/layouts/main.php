@@ -76,17 +76,17 @@ AppAsset::register($this);
                                     <a href="<?= Url::to(['/barang/index']); ?>">Barang</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['/project/index']); ?>">Project</a>
+                                    <a href="<?= Url::to(['/unit/index']); ?>">Customer</a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['/unit/index']); ?>">Customer</a>
+                                    <a href="<?= Url::to(['/project/index']); ?>">Project</a>
                                 </li>
                                 <li>
                                     <a href="<?= Url::to(['/user/index']); ?>">User</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="<?= Url::to(['/backuprestore']); ?>">Backup Restore</a>
-                                </li>
+                                </li> -->
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

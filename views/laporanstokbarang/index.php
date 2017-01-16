@@ -32,7 +32,7 @@ $("#laporanstokbarangsearch-kode_barang").select2({"allowClear":true,"theme":"bo
     "templateSelection" : function (city) { return city.text; },});
 $("#laporanstokbarangsearch-kode_kategori").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Kategori -","language":"en-US"});
 $("#laporanstokbarangsearch-kode_satuan").select2({"allowClear":true,"theme":"bootstrap","width":"100%","placeholder":"- Pilih Satuan -","language":"en-US"});
-$("#laporanstokbarangsearch-tampil_stok_kosong").select2({"theme":"bootstrap","width":"100%","language":"en-US"});
+$("#laporanstokbarangsearch-tampil_stok_kosong").select2({"allowClear":true,"theme":"bootstrap","width":"100%","language":"en-US","placeholder":"- Ya/Tidak -"});
 ';
 
 $this->registerJs($js);
@@ -65,7 +65,7 @@ Select2Asset::register($this);
 
         <?= $form->field($searchModel, 'deskripsi')->textarea(['rows' => 6]) ?>
 
-        <?= $form->field($searchModel, "tampil_stok_kosong")->dropDownList(['1'=>'Ya','2'=>'Tidak'],['target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>      
+        <?= $form->field($searchModel, "tampil_stok_kosong")->dropDownList(['1'=>'Ya','2'=>'Tidak'],['prompt'=>'','target'=>'asdasdas{$index}','class'=>'val-kode-barang'] ) ?>      
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-10">

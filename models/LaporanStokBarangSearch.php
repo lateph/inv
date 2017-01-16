@@ -64,7 +64,7 @@ class LaporanStokBarangSearch extends Barang
             return $dataProvider;
         }
 
-        if($this->tampil_stok_kosong == 1){
+        if($this->tampil_stok_kosong == 2){
             $query->andFilterWhere(['>', 'stok',0]);
         }
 

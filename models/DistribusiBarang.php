@@ -52,7 +52,7 @@ class DistribusiBarang extends \yii\db\ActiveRecord
         return [
             'no_distribusi' => 'No Distribusi',
             'tanggal_distribusi' => 'Tanggal Distribusi',
-            'kode_unit' => 'Kode Unit',
+            'kode_unit' => 'Kode Customer',
             'kode_project' => 'Kode Project',
             'no_request' => 'No Request',
             'penerima' => 'Penerima',
