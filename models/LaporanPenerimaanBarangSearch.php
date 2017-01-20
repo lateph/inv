@@ -65,6 +65,7 @@ class LaporanPenerimaanBarangSearch extends PenerimaanBarang
         // ]);
 
         $query->joinWith(['details']);
+        $query->addGroupBy('penerimaan_barang.no_penerimaan');
 
         // $query->joinWith(['details' => function ($q) {
         //     $q->onCondition(['penerimaan_barang_detail.kode_barang'=>$this->kode_barang]);

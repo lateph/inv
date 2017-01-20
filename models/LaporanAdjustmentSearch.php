@@ -61,6 +61,7 @@ class LaporanAdjustmentSearch extends Adjustment
         }
 
         $query->joinWith(['details']);
+        $query->addGroupBy('adjustment.no_adjustment');
 
 
         // $query->joinWith(['barang']);
