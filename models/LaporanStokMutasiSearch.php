@@ -88,7 +88,7 @@ class LaporanStokMutasiSearch extends Barang
         $query->joinWith(['satuan','kategori']);
         $query->join('inner join','inout','`inout`.kode_barang = barang.kode_barang and `inout`.idgudang = unit_gudang.kode_unit');
 
-        $query->orderBy('tanggal asc');
+        $query->orderBy('`inout`.`id` asc');
 
         if($this->tipeIO == 'in'){
             $query->andWhere('`inout`.qty_in > `inout`.qty_out');
