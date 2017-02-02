@@ -65,6 +65,8 @@ class LaporanDistribusiBarangSearch extends DistribusiBarang
         // ]);
 
         $query->joinWith(['details','unit']);
+        $query->addGroupBy('distribusi_barang.no_distribusi');
+        
 
         // $query->joinWith(['details' => function ($q) {
         //     $q->onCondition(['distribusi_barang_detail.kode_barang'=>$this->kode_barang]);
